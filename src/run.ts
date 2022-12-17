@@ -33,11 +33,7 @@ const taskFuncRandom = async () => {
     //fetch('https://opensky-network.org/api/states/all?icao24=a835af').then((resp) => console.log("response: ", resp))
 }
 
-taskFuncRandom()
-
-const task = new AsyncTask(
-    'simple task', 
-    async () => { 
+const taskFuncReal = async () => {
         // figure out if one of them has taken off / landed
         // check current vector against last known. should be able to tell if started or stopped moving.s
         // if so, issue VC from Veramo instance (with did = did:ens:theirplanes.eth)
@@ -50,18 +46,24 @@ const task = new AsyncTask(
         if (latLng && !lastKnown) {
             // just took off
             lastKnown = latLng
-            const airport = getAirport(latLng)
+            const airport = await getAirport(latLng)
+            issueTakeoff('a835af', (new Date()).toISOString(), airport)
         }
         if (!latLng && lastKnown) {
             // just landed
             lastKnown = null
-            const airport = getAirport(lastKnown!)
+            const airport = await getAirport(lastKnown!)
+            issueLanding('a835af', (new Date()).toISOString(), airport)
         }
         if (latLng && lastKnown) {
             // flying
             lastKnown = latLng
         }
-     },
+}
+
+const task = new AsyncTask(
+    'simple task', 
+    taskFuncReal,
     (err: Error) => { /* handle error here */ }
 )
 const job = new SimpleIntervalJob({ seconds: 20, }, task)
