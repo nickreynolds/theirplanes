@@ -16,6 +16,7 @@
     "@veramo/did-resolver": "^4.2.0",
     "@veramo/key-manager": "^4.2.0",
     "@veramo/kms-local": "^4.2.0",
+    "axios": "^1.2.1",
     "did-provider-ens": "^1.0.0",
     "dotenv": "^16.0.3",
     "ens-did-resolver": "^1.0.1",
