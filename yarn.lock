@@ -728,6 +728,11 @@
   resolved "https://registry.yarnpkg.com/@transmute/credentials-context/-/credentials-context-0.7.0-unstable.76.tgz#6867884179bcf7dfcfcb3ec98f0f4e657f914aef"
   integrity sha512-0qRgvgTMTYwrvJdOMk/K64ks1NQHWHc0esMRw/R+eXvO84gGdVDdjwvaxKZp48DYID/QuQv3V29o5aOxYpKQHA==
 
+"@transmute/credentials-context@^0.7.0-unstable.77":
+  version "0.7.0-unstable.77"
+  resolved "https://registry.yarnpkg.com/@transmute/credentials-context/-/credentials-context-0.7.0-unstable.77.tgz#0c0b5016836582b1460861660dbf9d6eb63a3717"
+  integrity sha512-A4BqcSfMNhHQ1TQOWRKoLYUlKMSqc7zUAqRdURWdX/HsM7McMkYbHuUSG53UwcH3lzW5vbVyKT3Cva7YIG7Sqw==
+
 "@transmute/ed25519-key-pair@0.7.0-unstable.2":
   version "0.7.0-unstable.2"
   resolved "https://registry.yarnpkg.com/@transmute/ed25519-key-pair/-/ed25519-key-pair-0.7.0-unstable.2.tgz#b36c076fe8b8fead312cf27b05d9973513fe3239"
@@ -986,6 +991,15 @@
     "@veramo/did-manager" "^4.2.0"
     debug "^4.3.3"
     ethr-did "^2.3.6"
+
+"@veramo/did-provider-web@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@veramo/did-provider-web/-/did-provider-web-4.2.0.tgz#1be772a9961c4c80eff7f9e31aca65ded21a977f"
+  integrity sha512-M5XdzeiIAoynb5I1oG6R+VJNI9+VmnSI0jJZ6eXpg4D1Tvyib38ehwgGFVCMsuhLsaCopA4+ZPm7U9PZWuCZ3Q==
+  dependencies:
+    "@veramo/core" "^4.2.0"
+    "@veramo/did-manager" "^4.2.0"
+    debug "^4.3.3"
 
 "@veramo/did-resolver@^4.2.0":
   version "4.2.0"

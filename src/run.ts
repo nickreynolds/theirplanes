@@ -3,6 +3,7 @@ import { ToadScheduler, SimpleIntervalJob, AsyncTask } from 'toad-scheduler'
 
 const scheduler = new ToadScheduler()
 import dotenv from 'dotenv'
+import { issueTakeoff } from './issueCreds'
 dotenv.config()
 console.log("process.env.KMS_SECRET_KEY: ", process.env.KMS_SECRET_KEY)
 const task = new AsyncTask(
@@ -12,8 +13,8 @@ const task = new AsyncTask(
         // check current vector against last known. should be able to tell if started or stopped moving.s
         // if so, issue VC from Veramo instance (with did = did:ens:theirplanes.eth)
         // then send that VC over DIDComm to did:ens:greenbug.eth
-        
-
+        console.log("go issue takeoff")
+        await issueTakeoff('elon', '123123123', 'Texas')
         //fetch('https://opensky-network.org/api/states/all?icao24=a835af').then((resp) => console.log("response: ", resp))
      },
     (err: Error) => { /* handle error here */ }

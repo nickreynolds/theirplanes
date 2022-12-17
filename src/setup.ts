@@ -9,6 +9,16 @@ import {
     ICredentialPlugin,
   } from '@veramo/core'
   
+import {
+  CredentialIssuerLD,
+  ICredentialIssuerLD,
+  LdDefaultContexts,
+  VeramoEcdsaSecp256k1RecoverySignature2020,
+  VeramoEd25519Signature2018,
+} from '@veramo/credential-ld'
+import { contexts as credential_contexts } from '@transmute/credentials-context'
+
+
   // Core identity manager plugin
   import { DIDManager } from '@veramo/did-manager'
   
@@ -42,6 +52,10 @@ const DATABASE_FILE = 'database.sqlite'
 // You will need to get a project ID from infura https://www.infura.io
 const INFURA_PROJECT_ID = '<your PROJECT_ID here>'
 
+import dotenv from 'dotenv'
+import { WebDIDProvider } from '@veramo/did-provider-web'
+dotenv.config()
+
 // This will be the secret key for the KMS
 const KMS_SECRET_KEY =
   process.env.KMS_SECRET_KEY || ''
@@ -59,7 +73,7 @@ entities: Entities,
 }).initialize()
 
 export const agent = createAgent<
-  IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin
+  IDIDManager & IKeyManager & IDataStore & IDataStoreORM & IResolver & ICredentialPlugin & ICredentialIssuerLD
 >({
   plugins: [
     new KeyManager({
@@ -77,6 +91,9 @@ export const agent = createAgent<
           network: 'goerli',
           rpcUrl: 'https://goerli.infura.io/v3/' + INFURA_PROJECT_ID,
         }),
+        'did:web': new WebDIDProvider({
+          defaultKms: 'local'
+        })
       },
     }),
     new DIDResolverPlugin({
@@ -86,5 +103,9 @@ export const agent = createAgent<
       }),
     }),
     new CredentialPlugin(),
+    new CredentialIssuerLD({
+      contextMaps: [LdDefaultContexts, credential_contexts as any],
+      suites: [new VeramoEcdsaSecp256k1RecoverySignature2020(), new VeramoEd25519Signature2018()],
+    }),
   ],
 })
