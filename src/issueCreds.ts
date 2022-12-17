@@ -3,7 +3,7 @@ import { agent } from "./setup"
 export const issueTakeoff = async (name: string, time: string, from: string) => {
     try {
         console.log("get did.")
-        const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:web', alias: 'theirplanes.eth'})
+        const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:ens', alias: 'theirplanes.eth'})
         console.log("theirPlanesDID: ", theirPlanesDID)
         const cred = await agent.createVerifiableCredential({ 
             credential: {
@@ -27,7 +27,7 @@ export const issueTakeoff = async (name: string, time: string, from: string) => 
 export const issueLanding = async (name: string, time: string, to: string) => {
     try {
         console.log("get did.")
-        const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:web', alias: 'theirplanes.eth'})
+        const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:ens', alias: 'theirplanes.eth'})
         console.log("theirPlanesDID: ", theirPlanesDID)
         const cred = await agent.createVerifiableCredential({ 
             credential: {

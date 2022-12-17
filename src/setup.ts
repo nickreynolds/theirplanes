@@ -38,6 +38,7 @@ import { contexts as credential_contexts } from '@transmute/credentials-context'
   import { DIDResolverPlugin } from '@veramo/did-resolver'
   import { Resolver } from 'did-resolver'
   import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
+  import { getResolver as ensDidResolver } from 'ens-did-resolver'
   import { getResolver as webDidResolver } from 'web-did-resolver'
   
   // Storage plugin using TypeOrm
@@ -54,6 +55,7 @@ const INFURA_PROJECT_ID = '<your PROJECT_ID here>'
 
 import dotenv from 'dotenv'
 import { WebDIDProvider } from '@veramo/did-provider-web'
+import { EnsDIDProvider } from 'did-provider-ens'
 dotenv.config()
 
 // This will be the secret key for the KMS
@@ -93,14 +95,21 @@ export const agent = createAgent<
         }),
         'did:web': new WebDIDProvider({
           defaultKms: 'local'
+        }),
+        'did:ens': new EnsDIDProvider({
+          defaultKms: 'local'
         })
       },
     }),
     new DIDResolverPlugin({
-      resolver: new Resolver({
-        ...ethrDidResolver({ infuraProjectId: INFURA_PROJECT_ID }),
-        ...webDidResolver(),
+      ...ethrDidResolver({
+        infuraProjectId: INFURA_PROJECT_ID
       }),
+      ...ensDidResolver({ networks: [
+        { name: 'goerli', rpcUrl: 'https://goerli.infura.io/v3/e471b8639c314004ae67ec0078f70102' },
+        { rpcUrl: 'https://mainnet.infura.io/v3/e471b8639c314004ae67ec0078f70102' }
+      ]}),
+      ...webDidResolver(),
     }),
     new CredentialPlugin(),
     new CredentialIssuerLD({
