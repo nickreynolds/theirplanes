@@ -2,7 +2,7 @@ import { agent } from "./setup"
 
 export const issueTakeoff = async (name: string, time: string, from: string) => {
     try {
-        console.log("get did.")
+        console.log("issue takeoff")
         const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:ens', alias: 'theirplanes.eth'})
         console.log("theirPlanesDID: ", theirPlanesDID)
         const cred = await agent.createVerifiableCredential({ 
@@ -15,7 +15,7 @@ export const issueTakeoff = async (name: string, time: string, from: string) => 
                     from
                 }
             },
-            // TODO (use 'lds' format, but DID needs to be resolvable for that to work)
+            // TODO (use 'lds' format, but DID needs to be resolvable at time of VC issuance for that to work)
             proofFormat: 'jwt'
         })
         console.log("cred: ", cred)
@@ -26,7 +26,7 @@ export const issueTakeoff = async (name: string, time: string, from: string) => 
 
 export const issueLanding = async (name: string, time: string, to: string) => {
     try {
-        console.log("get did.")
+        console.log("issue landing")
         const theirPlanesDID = await agent.didManagerGetOrCreate({ provider: 'did:ens', alias: 'theirplanes.eth'})
         console.log("theirPlanesDID: ", theirPlanesDID)
         const cred = await agent.createVerifiableCredential({ 
@@ -39,7 +39,7 @@ export const issueLanding = async (name: string, time: string, to: string) => {
                     to
                 }
             },
-            // TODO (use 'lds' format, but DID needs to be resolvable for that to work)
+            // TODO (use 'lds' format, but DID needs to be resolvable at time of VC issuance for that to work)
             proofFormat: 'jwt'
         })
         console.log("cred: ", cred)
